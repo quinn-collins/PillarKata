@@ -13,7 +13,7 @@ public class CoinIdentifier {
 		if(inRange(5.670, 0.1, mass)) {
 			return "quarter";
 		}
-		else if(mass == 2.268) {
+		else if(inRange(2.268, 0.1, mass)) {
 			return "dime";
 		}
 		else if(mass == 5) {

@@ -36,4 +36,14 @@ public class CoinIdentifierTest {
 	public void identifierIdentifiesQuartersThatHaveBeenWorn() {
 		Assert.assertEquals("quarter", coinIdentifier.identify(5.570, 24.26, 1.75));
 	}
+	
+	@Test
+	public void identifierIdentifiesQuartersThatHasExtraWeight() {
+		Assert.assertEquals("quarter", coinIdentifier.identify(5.770, 24.26, 1.75));
+	}
+	
+	@Test
+	public void identifierIdentifiesDimesThatHaveBeenWorn() {
+		Assert.assertEquals("dime", coinIdentifier.identify(2.168, 17.91, 1.35));
+	}
 }
