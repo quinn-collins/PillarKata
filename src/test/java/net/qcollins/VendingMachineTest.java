@@ -33,5 +33,11 @@ public class VendingMachineTest {
 		vendingMachine.insertCoin(2.268, 17.91, 1.35);
 		Assert.assertEquals(0.10, vendingMachine.getCurrentBalance(),.001);
 	}
+	
+	@Test
+	public void insertingNickelAddsToCurrentAmount() {
+		vendingMachine.insertCoin(5, 21.21, 1.95);
+		Assert.assertEquals(0.05, vendingMachine.getCurrentBalance(),.001);
+	}
 }
 

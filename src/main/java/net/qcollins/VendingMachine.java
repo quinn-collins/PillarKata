@@ -29,6 +29,9 @@ public class VendingMachine {
 		else if(coin.equals("dime")) {
 			currentBalance += .10;
 		}
+		else if(coin.equals("nickel")) {
+			currentBalance += .05;
+		}
 		else {
 			coinTray.add(coin);
 		}
