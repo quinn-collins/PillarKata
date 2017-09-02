@@ -10,7 +10,7 @@ public class CoinIdentifier {
 	 * @return a string with the name of the coin.
 	 */
 	public Object identify(double mass, double diameter, double thickness) {
-		if(mass > 5.470) {
+		if(inRange(5.670, 0.1, mass)) {
 			return "quarter";
 		}
 		else if(mass == 2.268) {
@@ -22,6 +22,10 @@ public class CoinIdentifier {
 		else {
 			return "rejected";
 		}
-	} 
+	}
+	
+	private boolean inRange(double target, double range, double value) {
+		return target - range <= value && target + range >= value;
+	}
 
 }
