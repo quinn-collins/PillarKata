@@ -10,7 +10,7 @@ public class CoinIdentifier {
 	 * @return a string with the name of the coin.
 	 */
 	public Object identify(double mass, double diameter, double thickness) {
-		if(mass == 5.670) {
+		if(mass > 5.470) {
 			return "quarter";
 		}
 		else if(mass == 2.268) {

@@ -31,4 +31,9 @@ public class CoinIdentifierTest {
 	public void identifierReturnsRejectedIfCriteriaNotMet() {
 		Assert.assertEquals("rejected", coinIdentifier.identify(2.5, 19, 1.52));
 	}
+	
+	@Test
+	public void identifierIdentifiesQuartersThatHaveBeenWorn() {
+		Assert.assertEquals("quarter", coinIdentifier.identify(5.570, 24.26, 1.75));
+	}
 }
