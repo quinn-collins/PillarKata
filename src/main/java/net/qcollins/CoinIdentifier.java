@@ -16,7 +16,7 @@ public class CoinIdentifier {
 		else if(inRange(2.268, 0.1, mass)) {
 			return "dime";
 		}
-		else if(mass == 5) {
+		else if(inRange(5, 0.1, mass)) {
 			return "nickel";
 		}
 		else {
