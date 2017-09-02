@@ -16,4 +16,9 @@ public class CoinIdentifierTest {
 	public void identifierCorrectlyIdentifiesQuarter() {
 		Assert.assertEquals("quarter", coinIdentifier.identify(5.670, 24.26, 1.75));
 	}
+	
+	@Test
+	public void identifierCorrectlyIdentifiesDime() {
+		Assert.assertEquals("dime", coinIdentifier.identify(2.268, 17.91, 1.35));
+	}
 }
