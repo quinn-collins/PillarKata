@@ -9,7 +9,7 @@ public class CoinIdentifier {
 	 * @param thickness is identified in millimeters.
 	 * @return a string with the name of the coin.
 	 */
-	public Object identify(double mass, double diameter, double thickness) {
+	public String identify(double mass, double diameter, double thickness) {
 		if(inRange(5.670, 0.1, mass)) {
 			return "quarter";
 		}
