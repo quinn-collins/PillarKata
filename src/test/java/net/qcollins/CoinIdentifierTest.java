@@ -21,4 +21,9 @@ public class CoinIdentifierTest {
 	public void identifierCorrectlyIdentifiesDime() {
 		Assert.assertEquals("dime", coinIdentifier.identify(2.268, 17.91, 1.35));
 	}
+	
+	@Test
+	public void identifierCorrectlyIdentifiesNickel() {
+		Assert.assertEquals("nickel", coinIdentifier.identify(5, 21.21, 1.95));
+	}
 }

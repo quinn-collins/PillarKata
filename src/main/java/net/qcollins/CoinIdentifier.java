@@ -13,8 +13,11 @@ public class CoinIdentifier {
 		if(mass == 5.670) {
 			return "quarter";
 		}
-		else {
+		else if(mass == 2.268) {
 			return "dime";
+		}
+		else {
+			return "nickel";
 		}
 	} 
 
