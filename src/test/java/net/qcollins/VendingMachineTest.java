@@ -21,5 +21,11 @@ public class VendingMachineTest {
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		Assert.assertEquals(0.25, vendingMachine.getCurrentBalance(),.001);
 	}
+	
+	@Test
+	public void vendingMachineRejectsCoinsOfIncorrectDimensions() {
+		vendingMachine.insertCoin(2.5, 19, 1.52);
+		Assert.assertEquals(1, vendingMachine.getCoinTray().size());
+	}
 }
 
