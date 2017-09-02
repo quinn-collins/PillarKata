@@ -26,4 +26,9 @@ public class CoinIdentifierTest {
 	public void identifierCorrectlyIdentifiesNickel() {
 		Assert.assertEquals("nickel", coinIdentifier.identify(5, 21.21, 1.95));
 	}
+	
+	@Test
+	public void identifierReturnsRejectedIfCriteriaNotMet() {
+		Assert.assertEquals("rejected", coinIdentifier.identify(2.5, 19, 1.52));
+	}
 }
