@@ -27,5 +27,11 @@ public class VendingMachineTest {
 		vendingMachine.insertCoin(2.5, 19, 1.52);
 		Assert.assertEquals(1, vendingMachine.getCoinTray().size());
 	}
+	
+	@Test
+	public void insertingDimeAddsToCurrentAmount() {
+		vendingMachine.insertCoin(2.268, 17.91, 1.35);
+		Assert.assertEquals(0.10, vendingMachine.getCurrentBalance(),.001);
+	}
 }
 

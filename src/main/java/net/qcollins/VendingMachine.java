@@ -26,6 +26,9 @@ public class VendingMachine {
 		if(coin.equals("quarter")) {
 			currentBalance += .25;
 		}
+		else if(coin.equals("dime")) {
+			currentBalance += .10;
+		}
 		else {
 			coinTray.add(coin);
 		}
