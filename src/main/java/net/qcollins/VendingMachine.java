@@ -57,4 +57,9 @@ public class VendingMachine {
 		setDisplay(DisplayMessage.THANK_YOU.getMessage());
 	}
 
+	public void returnChange() {
+		setDisplay(DisplayMessage.INSERT_COINS.getMessage());
+		
+	}
+
 }

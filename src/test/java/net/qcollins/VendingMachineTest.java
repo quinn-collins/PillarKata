@@ -66,5 +66,16 @@ public class VendingMachineTest {
 		vendingMachine.pressButton("COLA");
 		Assert.assertEquals("THANK YOU", vendingMachine.getDisplay());
 	}
+	
+	@Test
+	public void afterColaButtonPressedAndItemHasBeenDispensedMachineDisplaysInsertCoins() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("COLA");
+		vendingMachine.returnChange();
+		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplay());
+	}
 }
 
