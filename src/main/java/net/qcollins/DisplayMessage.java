@@ -2,7 +2,8 @@ package net.qcollins;
 
 public enum DisplayMessage {
 	
-	INSERT_COINS("INSERT COINS");
+	INSERT_COINS("INSERT COINS"),
+	THANK_YOU("THANK YOU");
 	
 	private final String message;
 	
