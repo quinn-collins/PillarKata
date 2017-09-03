@@ -5,7 +5,7 @@ import java.util.List;
 
 public class VendingMachine {
 	private CoinIdentifier coinIdentifier;
-	private int currentBalance;
+	private DollarAmount currentBalance = new DollarAmount(0);
 	private List<String> coinTray;
 	
 	public List<String> getCoinTray() {
@@ -17,25 +17,29 @@ public class VendingMachine {
 		coinTray = new ArrayList<String>();
 	}
 	
-	public double getCurrentBalance() {
+	public DollarAmount getCurrentBalance() {
 		return currentBalance;
 	}
 	
 	public void insertCoin(double mass, double diameter, double thickness) {
 		String coin = coinIdentifier.identify(mass, diameter, thickness);
 		if(coin.equals("quarter")) {
-			currentBalance += 25;
+			currentBalance = currentBalance.plus(new DollarAmount(25));
 		}
 		else if(coin.equals("dime")) {
-			currentBalance += 10;
+			currentBalance = currentBalance.plus(new DollarAmount(10));
 		}
 		else if(coin.equals("nickel")) {
-			currentBalance += 5;
+			currentBalance = currentBalance.plus(new DollarAmount(5));
 		}
 		else {
 			coinTray.add(coin);
 		}
 		
+	}
+
+	public String getDisplay() {
+		return currentBalance.toString();
 	}
 
 }
