@@ -75,6 +75,14 @@ public class VendingMachine {
 				setDisplay(DisplayMessage.THANK_YOU.getMessage());
 			}
 		}
+		else if(string == "CANDY") {
+			if(currentBalance.isLessThan(Product.CANDY.getPrice())) {
+				setDisplay("PRICE " + Product.CANDY.getPrice());
+			}
+			else {
+				setDisplay(DisplayMessage.THANK_YOU.getMessage());
+			}
+		}
 	}
 
 	public void returnChange() {
