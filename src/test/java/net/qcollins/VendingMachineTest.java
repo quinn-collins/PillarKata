@@ -51,5 +51,10 @@ public class VendingMachineTest {
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		Assert.assertEquals("$0.25", vendingMachine.getDisplay());
 	}
+	
+	@Test
+	public void whenNoCoinsAreInsertedMachineDisplaysInsertCoins() {
+		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplay());
+	}
 }
 

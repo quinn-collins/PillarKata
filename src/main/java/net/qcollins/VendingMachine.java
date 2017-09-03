@@ -39,7 +39,12 @@ public class VendingMachine {
 	}
 
 	public String getDisplay() {
-		return currentBalance.toString();
+		if(currentBalance.isGreaterThan(new DollarAmount(0))) {
+			return currentBalance.toString();			
+		}
+		else {
+			return DisplayMessage.INSERT_COINS.getMessage();
+		}
 	}
 
 }
