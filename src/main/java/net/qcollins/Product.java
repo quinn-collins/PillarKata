@@ -2,17 +2,17 @@ package net.qcollins;
 
 public enum Product {
 	
-	COLA(100),
-	CHIPS(50),
-	CANDY(65);
+	COLA(new DollarAmount(100)),
+	CHIPS(new DollarAmount(50)),
+	CANDY(new DollarAmount(65));
 	
-	private final int productPrice;
+	private final DollarAmount productPrice;
 	
-	Product(final int productPrice) {
+	Product(final DollarAmount productPrice) {
         this.productPrice = productPrice;
     }
 
-	public int getPrice() {
+	public DollarAmount getPrice() {
 		return productPrice;
 	}
 	

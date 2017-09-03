@@ -77,5 +77,36 @@ public class VendingMachineTest {
 		vendingMachine.returnChange();
 		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplay());
 	}
+	
+	@Test
+	public void whenTheAmountOfMoneyInsertedIsNotEnoughForTheItemMachineDisplaysPrice() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("COLA");
+		Assert.assertEquals("PRICE $1.00", vendingMachine.getDisplay());
+	}
+	
+	@Test
+	public void whenTheAmountOfMoneyInsertedIsNotEnoughForTheItemMachineDisplaysCurrentBalance() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("COLA");
+		Assert.assertEquals(vendingMachine.getCurrentBalance().toString(), vendingMachine.getDisplayAgain());
+	}
+	
+	@Test
+	public void whenChipButtonPressedAndMachineHasBeenFedEnoughMoneyDisplayShowsThankYou() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("CHIPS");
+		Assert.assertEquals("THANK YOU", vendingMachine.getDisplay());
+	}
+	
+	@Test
+	public void afterChipButtonPressedAndItemHasBeenDispensedMachineDisplaysInsertCoins() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("CHIPS");
+		vendingMachine.returnChange();
+		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplay());
+	}
 }
 
