@@ -67,7 +67,7 @@ public class VendingMachine {
 			}
 			else {
 				setDisplay(DisplayMessage.THANK_YOU.getMessage());
-				returnChange();
+				returnChange(Product.COLA.getPrice());
 			}
 		}
 		else if(string == "CHIPS") {
@@ -76,7 +76,7 @@ public class VendingMachine {
 			}
 			else {
 				setDisplay(DisplayMessage.THANK_YOU.getMessage());
-				returnChange();
+				returnChange(Product.CHIPS.getPrice());
 			}
 		}
 		else if(string == "CANDY") {
@@ -85,13 +85,27 @@ public class VendingMachine {
 			}
 			else {
 				setDisplay(DisplayMessage.THANK_YOU.getMessage());
-				returnChange();
+				returnChange(Product.CANDY.getPrice());
 			}
 		}
 	}
 
-	public void returnChange() {
-		currentBalance = currentBalance.minus(currentBalance);
+	public void returnChange(DollarAmount purchasePrice) {
+		currentBalance = currentBalance.minus(purchasePrice);
+		while(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(5))) {
+			if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(25))) {
+				currentBalance = currentBalance.minus(new DollarAmount(25));
+				coinTray.add("quarter");
+			}
+			else if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(10))) {
+				currentBalance = currentBalance.minus(new DollarAmount(10));
+				coinTray.add("dime");
+			}
+			else if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(5))) {
+				currentBalance = currentBalance.minus(new DollarAmount(5));
+				coinTray.add("nickel");
+			}
+		}
 		
 		
 	}
