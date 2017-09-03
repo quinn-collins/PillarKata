@@ -8,14 +8,23 @@ public class VendingMachine {
 	private DollarAmount currentBalance = new DollarAmount(0);
 	private List<String> coinTray;
 	private String display;
+	private Inventory inventory;
+	private VendingMachineItem cola;
+	private VendingMachineItem chips;
+	private VendingMachineItem candy;
 	
 	public List<String> getCoinTray() {
 		return coinTray;
 	}
 
-	public VendingMachine(CoinIdentifier coinIdentifier) {
+	public VendingMachine(CoinIdentifier coinIdentifier, Inventory inventory) {
 		this.coinIdentifier = coinIdentifier;
+		this.inventory = inventory;
 		coinTray = new ArrayList<String>();
+		cola = new Cola("Cola", new DollarAmount(100));
+		chips = new Chips("Chips", new DollarAmount(50));
+		candy = new Candy("Candy", new DollarAmount(65));
+		
 	}
 	
 	public DollarAmount getCurrentBalance() {
@@ -62,30 +71,30 @@ public class VendingMachine {
 
 	public void pressButton(String string) {
 		if(string == "COLA") {
-			if(currentBalance.isLessThan(Product.COLA.getPrice())) {
-				setDisplay("PRICE " + Product.COLA.getPrice());
+			if(currentBalance.isLessThan(cola.getItemPrice())) {
+				setDisplay("PRICE " + cola.getItemPrice());
 			}
 			else {
 				setDisplay(DisplayMessage.THANK_YOU.getMessage());
-				returnChange(Product.COLA.getPrice());
+				returnChange(cola.getItemPrice());
 			}
 		}
 		else if(string == "CHIPS") {
-			if(currentBalance.isLessThan(Product.CHIPS.getPrice())) {
-				setDisplay("PRICE " + Product.CHIPS.getPrice());
+			if(currentBalance.isLessThan(chips.getItemPrice())) {
+				setDisplay("PRICE " + chips.getItemPrice());
 			}
 			else {
 				setDisplay(DisplayMessage.THANK_YOU.getMessage());
-				returnChange(Product.CHIPS.getPrice());
+				returnChange(chips.getItemPrice());
 			}
 		}
 		else if(string == "CANDY") {
-			if(currentBalance.isLessThan(Product.CANDY.getPrice())) {
-				setDisplay("PRICE " + Product.CANDY.getPrice());
+			if(currentBalance.isLessThan(candy.getItemPrice())) {
+				setDisplay("PRICE " + candy.getItemPrice());
 			}
 			else {
 				setDisplay(DisplayMessage.THANK_YOU.getMessage());
-				returnChange(Product.CANDY.getPrice());
+				returnChange(candy.getItemPrice());
 			}
 		}
 		else if(string == "RETURN CHANGE") {

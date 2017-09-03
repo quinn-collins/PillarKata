@@ -9,11 +9,19 @@ import org.junit.Test;
 public class VendingMachineTest {
 	VendingMachine vendingMachine;
 	CoinIdentifier coinIdentifier;
+	Inventory inventory;
+	VendingMachineItem cola;
+	VendingMachineItem chips;
+	VendingMachineItem candy;
 	
 	@Before
 	public void setup() {
 		coinIdentifier = new CoinIdentifier();
-		vendingMachine = new VendingMachine(coinIdentifier);
+		inventory = new Inventory();
+		vendingMachine = new VendingMachine(coinIdentifier, inventory);
+		cola = new Cola("Cola", new DollarAmount(100));
+		chips = new Chips("Chips", new DollarAmount(50));
+		candy = new Candy("Candy", new DollarAmount(65));
 	}
 	
 	@Test
@@ -151,6 +159,11 @@ public class VendingMachineTest {
 		vendingMachine.insertCoin(2.268, 17.91, 1.35);
 		vendingMachine.pressButton("RETURN CHANGE");
 		Assert.assertEquals(2, vendingMachine.getCoinTray().size());
+	}
+	
+	@Test
+	public void canSetInventory() {
+		inventory.getItemStock().put(cola, 20);
 	}
 }
 
