@@ -43,14 +43,16 @@ public class VendingMachine {
 	}
 
 	public String getDisplay() {
-		if(currentBalance.compareTo(new DollarAmount(0))==0) {
-			setDisplay(DisplayMessage.INSERT_COINS.getMessage());
-		}
 		return display;
 	}
 	
 	public String getDisplayAgain() {
-		setDisplay(currentBalance.toString());
+		if(currentBalance.compareTo(new DollarAmount(0))==0) {
+			setDisplay(DisplayMessage.INSERT_COINS.getMessage());
+		}
+		else {
+			setDisplay(currentBalance.toString());
+		}
 		return display;
 	}
 	
@@ -65,6 +67,7 @@ public class VendingMachine {
 			}
 			else {
 				setDisplay(DisplayMessage.THANK_YOU.getMessage());
+				returnChange();
 			}
 		}
 		else if(string == "CHIPS") {
@@ -73,6 +76,7 @@ public class VendingMachine {
 			}
 			else {
 				setDisplay(DisplayMessage.THANK_YOU.getMessage());
+				returnChange();
 			}
 		}
 		else if(string == "CANDY") {
@@ -81,13 +85,14 @@ public class VendingMachine {
 			}
 			else {
 				setDisplay(DisplayMessage.THANK_YOU.getMessage());
+				returnChange();
 			}
 		}
 	}
 
 	public void returnChange() {
 		currentBalance = currentBalance.minus(currentBalance);
-		getDisplay();
+		
 		
 	}
 	

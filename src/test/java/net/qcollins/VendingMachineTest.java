@@ -54,7 +54,7 @@ public class VendingMachineTest {
 	
 	@Test
 	public void whenNoCoinsAreInsertedMachineDisplaysInsertCoins() {
-		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplay());
+		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplayAgain());
 	}
 	
 	@Test
@@ -75,7 +75,7 @@ public class VendingMachineTest {
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		vendingMachine.pressButton("COLA");
 		vendingMachine.returnChange();
-		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplay());
+		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplayAgain());
 	}
 	
 	@Test
@@ -106,7 +106,7 @@ public class VendingMachineTest {
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		vendingMachine.pressButton("CHIPS");
 		vendingMachine.returnChange();
-		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplay());
+		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplayAgain());
 	}
 	
 	@Test
@@ -125,7 +125,7 @@ public class VendingMachineTest {
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		vendingMachine.pressButton("CANDY");
 		vendingMachine.returnChange();
-		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplay());
+		Assert.assertEquals("INSERT COINS", vendingMachine.getDisplayAgain());
 	}
 	
 	@Test
@@ -135,6 +135,17 @@ public class VendingMachineTest {
 		vendingMachine.pressButton("CHIPS");
 		vendingMachine.returnChange();
 		Assert.assertEquals(new DollarAmount(0), vendingMachine.getCurrentBalance());
+	}
+	
+	@Test
+	public void whenPurchaseIsMadeWithExtraMoneyInMachineTheExtraIsPutInTheCoinTray() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("CHIPS");
+		vendingMachine.returnChange();
+		Assert.assertEquals(2, vendingMachine.getCoinTray().size());
 	}
 }
 
