@@ -143,5 +143,14 @@ public class VendingMachineTest {
 		vendingMachine.pressButton("CHIPS");
 		Assert.assertEquals(2, vendingMachine.getCoinTray().size());
 	}
+	
+	@Test
+	public void whenCustomerPressesReturnChangeButtonCoinsAreAddedToCoinTray() {
+		vendingMachine.insertCoin(2.268, 17.91, 1.35);
+		vendingMachine.insertCoin(2.268, 17.91, 1.35);
+		vendingMachine.insertCoin(2.268, 17.91, 1.35);
+		vendingMachine.pressButton("RETURN CHANGE");
+		Assert.assertEquals(2, vendingMachine.getCoinTray().size());
+	}
 }
 

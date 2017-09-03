@@ -88,6 +88,9 @@ public class VendingMachine {
 				returnChange(Product.CANDY.getPrice());
 			}
 		}
+		else if(string == "RETURN CHANGE") {
+			returnChange(new DollarAmount(0));
+		}
 	}
 
 	public void returnChange(DollarAmount purchasePrice) {
