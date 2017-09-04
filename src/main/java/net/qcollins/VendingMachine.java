@@ -71,6 +71,9 @@ public class VendingMachine {
 			if(coin.getName().equals("dime")) {
 				coinBank.getDimeStock().add((Dime) coin);
 			}
+			if(coin.getName().equals("nickel")) {
+				coinBank.getNickelStock().add((Nickel) coin);
+			}
 			currentBalance = currentBalance.plus(coin.getValue());
 			setDisplay(currentBalance.toString());
 		}
