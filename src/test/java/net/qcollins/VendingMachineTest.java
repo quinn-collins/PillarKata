@@ -12,6 +12,7 @@ public class VendingMachineTest {
 	VendingMachine vendingMachine;
 	CoinIdentifier coinIdentifier;
 	Inventory inventory;
+	CoinBank coinBank;
 	VendingMachineItem cola;
 	VendingMachineItem chips;
 	VendingMachineItem candy;
@@ -20,7 +21,9 @@ public class VendingMachineTest {
 	public void setup() {
 		coinIdentifier = new CoinIdentifier();
 		inventory = new Inventory();
-		vendingMachine = new VendingMachine(coinIdentifier, inventory);
+		coinBank = new CoinBank();
+		vendingMachine = new VendingMachine(coinIdentifier, inventory, coinBank);
+		vendingMachine.replenishInventory(1,1,1);
 		
 	}
 	
@@ -226,6 +229,12 @@ public class VendingMachineTest {
 	public void ifButtonMalfunctionsErrorIsDisplayed() {
 		vendingMachine.pressButton("error");
 		Assert.assertEquals("ERROR", vendingMachine.getDisplay());
+	}
+	
+	@Test
+	public void theVendingMachineCoinBankCanHaveQuartersReplenished() {
+		vendingMachine.replenishCoinBank(20);
+		Assert.assertEquals(20, coinBank.getQuarterStock().size());
 	}
 }
 

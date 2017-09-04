@@ -13,7 +13,7 @@ public class CoinIdentifier {
 	 * @param mass is identified in grams.
 	 * @param diameter is identified in millimeters.
 	 * @param thickness is identified in millimeters.
-	 * @return a string with the name of the coin.
+	 * @return a coin object.
 	 */
 	public Currency identify(double mass, double diameter, double thickness) {
 		if(inRange(5.670, 0.1, mass)) {

@@ -18,25 +18,38 @@ public class VendingMachine {
 	private List<Currency> coinTray;
 	private String display;
 	private Inventory inventory;
+	private CoinBank coinBank;
 	private VendingMachineItem cola;
 	private VendingMachineItem chips;
 	private VendingMachineItem candy;
+	
 	
 	
 	public List<Currency> getCoinTray() {
 		return coinTray;
 	}
 
-	public VendingMachine(CoinIdentifier coinIdentifier, Inventory inventory) {
+	public VendingMachine(CoinIdentifier coinIdentifier, Inventory inventory, CoinBank coinBank) {
 		this.coinIdentifier = coinIdentifier;
 		this.inventory = inventory;
+		this.coinBank = coinBank;
 		coinTray = new ArrayList<Currency>();
 		cola = new Cola("Cola", new DollarAmount(100));
 		chips = new Chips("Chips", new DollarAmount(50));
 		candy = new Candy("Candy", new DollarAmount(65));
-		inventory.getItemStock().put(cola, 1);
-		inventory.getItemStock().put(chips, 1);
-		inventory.getItemStock().put(candy, 1);
+		
+	}
+	
+	public void replenishInventory(int numberOfColas, int numberOfChips, int numberOfCandy) {
+		inventory.getItemStock().put(cola, numberOfColas);
+		inventory.getItemStock().put(chips, numberOfChips);
+		inventory.getItemStock().put(candy, numberOfCandy);
+	}
+	
+	public void replenishCoinBank(int numberOfCoinsToBeAdded) {
+		for(int i = 0; i < numberOfCoinsToBeAdded; i++) {
+			coinBank.getQuarterStock().add(new Quarter(new DollarAmount(25), "quarter"));
+		}
 		
 	}
 	
