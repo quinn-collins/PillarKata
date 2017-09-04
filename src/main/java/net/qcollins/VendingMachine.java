@@ -46,15 +46,15 @@ public class VendingMachine {
 		inventory.getItemStock().put(candy, numberOfCandy);
 	}
 	
-	public void replenishQuartersInCoinBank(int numberOfCoinsToBeAdded) {
-		for(int i = 0; i < numberOfCoinsToBeAdded; i++) {
+	public void replenishCoinsInCoinBank(int numberOfQuartersToBeAdded, int numberOfDimesToBeAdded, int numberOfNickelsToBeAdded) {
+		for(int i = 0; i < numberOfQuartersToBeAdded; i++) {
 			coinBank.getQuarterStock().add(new Quarter(new DollarAmount(25), "quarter"));
 		}
-	}
-	
-	public void replenishDimesInCoinBank(int numberOfCoinsToBeAdded) {
-		for(int i = 0; i < numberOfCoinsToBeAdded; i++) {
+		for(int i = 0; i < numberOfDimesToBeAdded; i++) {
 			coinBank.getDimeStock().add(new Dime(new DollarAmount(10), "dime"));
+		}
+		for(int i = 0; i < numberOfNickelsToBeAdded; i++) {
+			coinBank.getNickelStock().add(new Nickel(new DollarAmount(5), "nickel"));
 		}
 	}
 	
