@@ -1,10 +1,12 @@
-package net.qcollins;
+package net.qcollins.currency;
 
-public class Rejected extends Currency {
+import net.qcollins.DollarAmount;
+
+public class Dime extends Currency {
 	private DollarAmount value;
 	private String name;
 	
-	public Rejected(DollarAmount value, String name) {
+	public Dime(DollarAmount value, String name) {
 		this.value = value;
 		this.name = name;
 	}

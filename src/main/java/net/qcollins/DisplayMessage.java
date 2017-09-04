@@ -4,7 +4,8 @@ public enum DisplayMessage {
 	
 	INSERT_COINS("INSERT COINS"),
 	THANK_YOU("THANK YOU"),
-	SOLD_OUT("SOLD OUT");
+	SOLD_OUT("SOLD OUT"),
+	ERROR("ERROR");
 	
 	private final String message;
 	

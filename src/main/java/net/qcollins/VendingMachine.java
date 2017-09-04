@@ -3,6 +3,10 @@ package net.qcollins;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.qcollins.currency.Currency;
+import net.qcollins.currency.Dime;
+import net.qcollins.currency.Nickel;
+import net.qcollins.currency.Quarter;
 import net.qcollins.product.Candy;
 import net.qcollins.product.Chips;
 import net.qcollins.product.Cola;
@@ -82,6 +86,9 @@ public class VendingMachine {
 		}
 		else if(string == "RETURN CHANGE") {
 			returnChange(new DollarAmount(0));
+		}
+		else {
+			setDisplay(DisplayMessage.ERROR.getMessage());
 		}
 	}
 	

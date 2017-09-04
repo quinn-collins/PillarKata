@@ -1,4 +1,6 @@
-package net.qcollins;
+package net.qcollins.currency;
+
+import net.qcollins.DollarAmount;
 
 public abstract class Currency {
 

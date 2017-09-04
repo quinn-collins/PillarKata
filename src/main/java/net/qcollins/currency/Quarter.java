@@ -1,10 +1,12 @@
-package net.qcollins;
+package net.qcollins.currency;
 
-public class Nickel extends Currency {
+import net.qcollins.DollarAmount;
+
+public class Quarter extends Currency {
 	private DollarAmount value;
 	private String name;
 	
-	public Nickel(DollarAmount value, String name) {
+	public Quarter(DollarAmount value, String name) {
 		this.value = value;
 		this.name = name;
 	}

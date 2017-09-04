@@ -221,5 +221,11 @@ public class VendingMachineTest {
 		vendingMachine.pressButton("CANDY");
 		Assert.assertEquals("SOLD OUT", vendingMachine.getDisplay());
 	}
+	
+	@Test
+	public void ifButtonMalfunctionsErrorIsDisplayed() {
+		vendingMachine.pressButton("error");
+		Assert.assertEquals("ERROR", vendingMachine.getDisplay());
+	}
 }
 

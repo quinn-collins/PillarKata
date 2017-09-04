@@ -1,5 +1,11 @@
 package net.qcollins;
 
+import net.qcollins.currency.Currency;
+import net.qcollins.currency.Dime;
+import net.qcollins.currency.Nickel;
+import net.qcollins.currency.Quarter;
+import net.qcollins.currency.Rejected;
+
 public class CoinIdentifier {
 	
 	/**
