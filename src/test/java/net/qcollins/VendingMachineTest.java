@@ -233,8 +233,14 @@ public class VendingMachineTest {
 	
 	@Test
 	public void theVendingMachineCoinBankCanHaveQuartersReplenished() {
-		vendingMachine.replenishCoinBank(20);
+		vendingMachine.replenishQuartersInCoinBank(20);
 		Assert.assertEquals(20, coinBank.getQuarterStock().size());
+	}
+	
+	@Test
+	public void theVendingMachineCoinBankCanHaveDimesReplenished() {
+		vendingMachine.replenishDimesInCoinBank(20);
+		Assert.assertEquals(20, coinBank.getDimeStock().size());
 	}
 }
 
