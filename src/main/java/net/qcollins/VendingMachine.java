@@ -128,30 +128,60 @@ public class VendingMachine {
 			setDisplay(DisplayMessage.SOLD_OUT.getMessage());
 		}
 		else {
-			setDisplay(DisplayMessage.THANK_YOU.getMessage());
-			inventory.decreaseItemStock(item);
-			returnChange(item.getItemPrice());
+			if(machineNeedsExactChange(item, currentBalance)) {
+				setDisplay(DisplayMessage.EXACT_CHANGE_ONLY.getMessage());
+			}
+			else {
+				setDisplay(DisplayMessage.THANK_YOU.getMessage());
+				inventory.decreaseItemStock(item);
+				returnChange(item.getItemPrice());
+			}
 		}
 	}
 	
+	private boolean machineNeedsExactChange(VendingMachineItem item, DollarAmount currentBalance) {
+		DollarAmount expectedChange = currentBalance.minus(item.getItemPrice());
+		for(int i = 0; i < coinBank.getQuarterStock().size(); i++) {
+			if(expectedChange.isGreaterThanOrEqualTo(new DollarAmount(25))) {
+				expectedChange = expectedChange.minus(new DollarAmount(25));
+			}
+		}
+		for(int i = 0; i < coinBank.getDimeStock().size(); i++) {
+			if(expectedChange.isGreaterThanOrEqualTo(new DollarAmount(10))) {
+				expectedChange = expectedChange.minus(new DollarAmount(10));
+			}
+		}
+		for(int i = 0; i < coinBank.getNickelStock().size(); i++) {
+			if(expectedChange.isGreaterThanOrEqualTo(new DollarAmount(5))) {
+				expectedChange = expectedChange.minus(new DollarAmount(5));
+			}
+		}
+		if(expectedChange.compareTo(new DollarAmount(0))==0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+//		return false;
+	}
 
 	public void returnChange(DollarAmount purchasePrice) {
 		currentBalance = currentBalance.minus(purchasePrice);
 		while(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(5))) {
-			if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(25))) {
+			if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(25)) && coinBank.getQuarterStock().size() > 0) {
 				currentBalance = currentBalance.minus(new DollarAmount(25));
 				coinBank.getQuarterStock().remove(0);
 				coinTray.add(new Quarter(new DollarAmount(25), "quarter"));
 			}
-			else if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(10))) {
+			else if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(10)) && coinBank.getDimeStock().size() > 0) {
 				currentBalance = currentBalance.minus(new DollarAmount(10));
 				coinBank.getDimeStock().remove(0);
 				coinTray.add(new Dime(new DollarAmount(10), "dime"));
 			}
-			else if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(5))) {
+			else if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(5)) && coinBank.getNickelStock().size() > 0) {
 				currentBalance = currentBalance.minus(new DollarAmount(5));
 				coinBank.getNickelStock().remove(0);
-				coinTray.add(new Nickel(new DollarAmount(25), "nickel"));
+				coinTray.add(new Nickel(new DollarAmount(5), "nickel"));
 			}
 		}
 	}

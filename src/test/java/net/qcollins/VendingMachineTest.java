@@ -24,7 +24,8 @@ public class VendingMachineTest {
 		coinBank = new CoinBank();
 		vendingMachine = new VendingMachine(coinIdentifier, inventory, coinBank);
 		vendingMachine.replenishInventory(1,1,1);
-		vendingMachine.replenishCoinsInCoinBank(20,20,20);
+		
+		
 	}
 	
 	@Test
@@ -135,6 +136,7 @@ public class VendingMachineTest {
 	
 	@Test
 	public void whenCandyButtonPressedAndMachineHasBeenFedEnoughMoneyDisplayShowsThankYou() {
+		vendingMachine.replenishCoinsInCoinBank(20,20,20);
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
@@ -144,6 +146,7 @@ public class VendingMachineTest {
 	
 	@Test
 	public void afterCandyButtonPressedAndItemHasBeenDispensedMachineDisplaysInsertCoins() {
+		vendingMachine.replenishCoinsInCoinBank(20,20,20);
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
@@ -171,6 +174,7 @@ public class VendingMachineTest {
 	
 	@Test
 	public void whenCustomerPressesReturnChangeButtonCoinsAreAddedToCoinTray() {
+		vendingMachine.replenishCoinsInCoinBank(20,20,20);
 		vendingMachine.insertCoin(2.268, 17.91, 1.35);
 		vendingMachine.insertCoin(2.268, 17.91, 1.35);
 		vendingMachine.insertCoin(2.268, 17.91, 1.35);
@@ -214,6 +218,7 @@ public class VendingMachineTest {
 	
 	@Test
 	public void whenCandyIsOutOfStockTheMachineDisplaysSoldOut() {
+		vendingMachine.replenishCoinsInCoinBank(20,20,20);
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
@@ -233,7 +238,7 @@ public class VendingMachineTest {
 	
 	@Test
 	public void theVendingMachineCoinBankCanHaveQuartersReplenished() {
-		vendingMachine.replenishCoinsInCoinBank(20,20,20);
+		vendingMachine.replenishCoinsInCoinBank(40,40,40);
 		Assert.assertEquals(40, coinBank.getQuarterStock().size());
 		Assert.assertEquals(40, coinBank.getDimeStock().size());
 		Assert.assertEquals(40, coinBank.getDimeStock().size());
@@ -241,6 +246,7 @@ public class VendingMachineTest {
 	
 	@Test
 	public void whenCustomerInsertsQuartersTheyAreAddedToCoinBank() {
+		vendingMachine.replenishCoinsInCoinBank(20,20,20);
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		Assert.assertEquals(21, coinBank.getQuarterStock().size());
 	}
@@ -248,20 +254,31 @@ public class VendingMachineTest {
 	@Test
 	public void whenCustomerInsertsDimesTheyAreAddedToCoinBank() {
 		vendingMachine.insertCoin(2.268, 17.91, 1.35);
-		Assert.assertEquals(21, coinBank.getDimeStock().size());
+		Assert.assertEquals(1, coinBank.getDimeStock().size());
 	}
 	
 	@Test
 	public void whenCustomerInsertsNickelsTheyAreAddedToCoinBank() {
+		vendingMachine.replenishCoinsInCoinBank(20,20,20);
 		vendingMachine.insertCoin(5, 21.21, 1.95);
 		Assert.assertEquals(21, coinBank.getNickelStock().size());
 	}
 	
 	@Test
 	public void whenCustomerHasChangeReturnedCoinsAreRemovedFromCoinBank() {
+		vendingMachine.replenishCoinsInCoinBank(20,20,20);
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		vendingMachine.returnChange(new DollarAmount(0));
 		Assert.assertEquals(20, coinBank.getQuarterStock().size());
+	}
+	
+	@Test
+	public void whenMachineDoesNotHaveChangeForAnItemItWillDisplayExactChangeOnly() {	
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("CANDY");
+		Assert.assertEquals("EXACT CHANGE ONLY", vendingMachine.getDisplay());
 	}
 }
 
