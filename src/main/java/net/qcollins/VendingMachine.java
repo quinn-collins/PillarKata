@@ -65,6 +65,9 @@ public class VendingMachine {
 	public void insertCoin(double mass, double diameter, double thickness) {
 		Currency coin = coinIdentifier.identify(mass, diameter, thickness);
 		if(coin.getValue().isGreaterThan(new DollarAmount(1))) {
+			if(coin.getName().equals("quarter")) {
+				coinBank.getQuarterStock().add((Quarter) coin);
+			}
 			currentBalance = currentBalance.plus(coin.getValue());
 			setDisplay(currentBalance.toString());
 		}
@@ -142,8 +145,6 @@ public class VendingMachine {
 				coinTray.add(new Nickel(new DollarAmount(25), "nickel"));
 			}
 		}
-		
-		
 	}
 	
 	

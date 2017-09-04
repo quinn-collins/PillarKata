@@ -24,7 +24,7 @@ public class VendingMachineTest {
 		coinBank = new CoinBank();
 		vendingMachine = new VendingMachine(coinIdentifier, inventory, coinBank);
 		vendingMachine.replenishInventory(1,1,1);
-		
+		vendingMachine.replenishCoinsInCoinBank(20,20,20);
 	}
 	
 	@Test
@@ -234,9 +234,15 @@ public class VendingMachineTest {
 	@Test
 	public void theVendingMachineCoinBankCanHaveQuartersReplenished() {
 		vendingMachine.replenishCoinsInCoinBank(20,20,20);
-		Assert.assertEquals(20, coinBank.getQuarterStock().size());
-		Assert.assertEquals(20, coinBank.getDimeStock().size());
-		Assert.assertEquals(20, coinBank.getDimeStock().size());
+		Assert.assertEquals(40, coinBank.getQuarterStock().size());
+		Assert.assertEquals(40, coinBank.getDimeStock().size());
+		Assert.assertEquals(40, coinBank.getDimeStock().size());
+	}
+	
+	@Test
+	public void whenCustomerInsertsQuartersTheyAreAddedToCoinBank() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		Assert.assertEquals(21, coinBank.getQuarterStock().size());
 	}
 	
 }
