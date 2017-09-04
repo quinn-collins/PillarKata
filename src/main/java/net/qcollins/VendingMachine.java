@@ -3,27 +3,36 @@ package net.qcollins;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.qcollins.product.Candy;
+import net.qcollins.product.Chips;
+import net.qcollins.product.Cola;
+import net.qcollins.product.VendingMachineItem;
+
 public class VendingMachine {
 	private CoinIdentifier coinIdentifier;
 	private DollarAmount currentBalance = new DollarAmount(0);
-	private List<String> coinTray;
+	private List<Currency> coinTray;
 	private String display;
 	private Inventory inventory;
 	private VendingMachineItem cola;
 	private VendingMachineItem chips;
 	private VendingMachineItem candy;
 	
-	public List<String> getCoinTray() {
+	
+	public List<Currency> getCoinTray() {
 		return coinTray;
 	}
 
 	public VendingMachine(CoinIdentifier coinIdentifier, Inventory inventory) {
 		this.coinIdentifier = coinIdentifier;
 		this.inventory = inventory;
-		coinTray = new ArrayList<String>();
+		coinTray = new ArrayList<Currency>();
 		cola = new Cola("Cola", new DollarAmount(100));
 		chips = new Chips("Chips", new DollarAmount(50));
 		candy = new Candy("Candy", new DollarAmount(65));
+		inventory.getItemStock().put(cola, 1);
+		inventory.getItemStock().put(chips, 1);
+		inventory.getItemStock().put(candy, 1);
 		
 	}
 	
@@ -32,17 +41,9 @@ public class VendingMachine {
 	}
 	
 	public void insertCoin(double mass, double diameter, double thickness) {
-		String coin = coinIdentifier.identify(mass, diameter, thickness);
-		if(coin.equals("quarter")) {
-			currentBalance = currentBalance.plus(new DollarAmount(25));
-			setDisplay(currentBalance.toString());
-		}
-		else if(coin.equals("dime")) {
-			currentBalance = currentBalance.plus(new DollarAmount(10));
-			setDisplay(currentBalance.toString());
-		}
-		else if(coin.equals("nickel")) {
-			currentBalance = currentBalance.plus(new DollarAmount(5));
+		Currency coin = coinIdentifier.identify(mass, diameter, thickness);
+		if(coin.getValue().isGreaterThan(new DollarAmount(1))) {
+			currentBalance = currentBalance.plus(coin.getValue());
 			setDisplay(currentBalance.toString());
 		}
 		else {
@@ -71,51 +72,49 @@ public class VendingMachine {
 
 	public void pressButton(String string) {
 		if(string == "COLA") {
-			if(currentBalance.isLessThan(cola.getItemPrice())) {
-				setDisplay("PRICE " + cola.getItemPrice());
-			}
-			else {
-				setDisplay(DisplayMessage.THANK_YOU.getMessage());
-				returnChange(cola.getItemPrice());
-			}
+			productPurchase(cola);
 		}
 		else if(string == "CHIPS") {
-			if(currentBalance.isLessThan(chips.getItemPrice())) {
-				setDisplay("PRICE " + chips.getItemPrice());
-			}
-			else {
-				setDisplay(DisplayMessage.THANK_YOU.getMessage());
-				returnChange(chips.getItemPrice());
-			}
+			productPurchase(chips);
 		}
 		else if(string == "CANDY") {
-			if(currentBalance.isLessThan(candy.getItemPrice())) {
-				setDisplay("PRICE " + candy.getItemPrice());
-			}
-			else {
-				setDisplay(DisplayMessage.THANK_YOU.getMessage());
-				returnChange(candy.getItemPrice());
-			}
+			productPurchase(candy);
 		}
 		else if(string == "RETURN CHANGE") {
 			returnChange(new DollarAmount(0));
 		}
 	}
+	
+	public void productPurchase(VendingMachineItem item) {
+		
+		if(currentBalance.isLessThan(item.getItemPrice())) {
+			setDisplay("PRICE " + item.getItemPrice());
+		}
+		else if(inventory.getItemStock().get(item) < 1) {
+			setDisplay(DisplayMessage.SOLD_OUT.getMessage());
+		}
+		else {
+			setDisplay(DisplayMessage.THANK_YOU.getMessage());
+			inventory.decreaseItemStock(item);
+			returnChange(item.getItemPrice());
+		}
+	}
+	
 
 	public void returnChange(DollarAmount purchasePrice) {
 		currentBalance = currentBalance.minus(purchasePrice);
 		while(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(5))) {
 			if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(25))) {
 				currentBalance = currentBalance.minus(new DollarAmount(25));
-				coinTray.add("quarter");
+				coinTray.add(new Quarter(new DollarAmount(25), "quarter"));
 			}
 			else if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(10))) {
 				currentBalance = currentBalance.minus(new DollarAmount(10));
-				coinTray.add("dime");
+				coinTray.add(new Dime(new DollarAmount(10), "dime"));
 			}
 			else if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(5))) {
 				currentBalance = currentBalance.minus(new DollarAmount(5));
-				coinTray.add("nickel");
+				coinTray.add(new Nickel(new DollarAmount(25), "nickel"));
 			}
 		}
 		

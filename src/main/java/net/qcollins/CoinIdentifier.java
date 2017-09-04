@@ -9,18 +9,18 @@ public class CoinIdentifier {
 	 * @param thickness is identified in millimeters.
 	 * @return a string with the name of the coin.
 	 */
-	public String identify(double mass, double diameter, double thickness) {
+	public Currency identify(double mass, double diameter, double thickness) {
 		if(inRange(5.670, 0.1, mass)) {
-			return "quarter";
+			return new Quarter(new DollarAmount(25), "quarter");
 		}
 		else if(inRange(2.268, 0.1, mass)) {
-			return "dime";
+			return new Dime(new DollarAmount(10), "dime");
 		}
 		else if(inRange(5, 0.1, mass)) {
-			return "nickel";
+			return new Nickel(new DollarAmount(5), "nickel");
 		}
 		else {
-			return "rejected";
+			return new Rejected(new DollarAmount(0), "rejected");
 		}
 	}
 	

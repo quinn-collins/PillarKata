@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.qcollins.product.VendingMachineItem;
+
 
 
 public class VendingMachineTest {
@@ -19,9 +21,7 @@ public class VendingMachineTest {
 		coinIdentifier = new CoinIdentifier();
 		inventory = new Inventory();
 		vendingMachine = new VendingMachine(coinIdentifier, inventory);
-		cola = new Cola("Cola", new DollarAmount(100));
-		chips = new Chips("Chips", new DollarAmount(50));
-		candy = new Candy("Candy", new DollarAmount(65));
+		
 	}
 	
 	@Test
@@ -94,9 +94,23 @@ public class VendingMachineTest {
 	}
 	
 	@Test
-	public void whenTheAmountOfMoneyInsertedIsNotEnoughForTheItemMachineDisplaysCurrentBalance() {
+	public void whenTheAmountOfMoneyInsertedIsNotEnoughForColaMachineDisplaysCurrentBalance() {
 		vendingMachine.insertCoin(5.670, 24.26, 1.75);
 		vendingMachine.pressButton("COLA");
+		Assert.assertEquals(vendingMachine.getCurrentBalance().toString(), vendingMachine.getDisplayAgain());
+	}
+	
+	@Test
+	public void whenTheAmountOfMoneyInsertedIsNotEnoughForChipsMachineDisplaysCurrentBalance() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("CHIPS");
+		Assert.assertEquals(vendingMachine.getCurrentBalance().toString(), vendingMachine.getDisplayAgain());
+	}
+	
+	@Test
+	public void whenTheAmountOfMoneyInsertedIsNotEnoughCandyItemMachineDisplaysCurrentBalance() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("CANDY");
 		Assert.assertEquals(vendingMachine.getCurrentBalance().toString(), vendingMachine.getDisplayAgain());
 	}
 	
@@ -161,9 +175,51 @@ public class VendingMachineTest {
 		Assert.assertEquals(2, vendingMachine.getCoinTray().size());
 	}
 	
+	
+	
 	@Test
 	public void canSetInventory() {
-		inventory.getItemStock().put(cola, 20);
+		inventory.getItemStock().put(cola, 30);
+		Assert.assertEquals(30, inventory.getItemStock().get(cola).intValue());
+	}
+	
+	@Test
+	public void whenChipsAreOutOfStockTheMachineDisplaysSoldOut() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("CHIPS");
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("CHIPS");
+		Assert.assertEquals("SOLD OUT", vendingMachine.getDisplay());
+	}
+	
+	@Test
+	public void whenColaIsOutOfStockTheMachineDisplaysSoldOut() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("COLA");
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("COLA");
+		Assert.assertEquals("SOLD OUT", vendingMachine.getDisplay());
+	}
+	
+	@Test
+	public void whenCandyIsOutOfStockTheMachineDisplaysSoldOut() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("CANDY");
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.pressButton("CANDY");
+		Assert.assertEquals("SOLD OUT", vendingMachine.getDisplay());
 	}
 }
 

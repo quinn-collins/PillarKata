@@ -1,4 +1,6 @@
-package net.qcollins;
+package net.qcollins.product;
+
+import net.qcollins.DollarAmount;
 
 public abstract class VendingMachineItem {
 	
