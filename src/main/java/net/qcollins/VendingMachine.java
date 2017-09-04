@@ -140,14 +140,17 @@ public class VendingMachine {
 		while(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(5))) {
 			if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(25))) {
 				currentBalance = currentBalance.minus(new DollarAmount(25));
+				coinBank.getQuarterStock().remove(0);
 				coinTray.add(new Quarter(new DollarAmount(25), "quarter"));
 			}
 			else if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(10))) {
 				currentBalance = currentBalance.minus(new DollarAmount(10));
+				coinBank.getDimeStock().remove(0);
 				coinTray.add(new Dime(new DollarAmount(10), "dime"));
 			}
 			else if(currentBalance.isGreaterThanOrEqualTo(new DollarAmount(5))) {
 				currentBalance = currentBalance.minus(new DollarAmount(5));
+				coinBank.getNickelStock().remove(0);
 				coinTray.add(new Nickel(new DollarAmount(25), "nickel"));
 			}
 		}

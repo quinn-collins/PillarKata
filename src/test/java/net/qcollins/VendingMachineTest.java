@@ -257,5 +257,11 @@ public class VendingMachineTest {
 		Assert.assertEquals(21, coinBank.getNickelStock().size());
 	}
 	
+	@Test
+	public void whenCustomerHasChangeReturnedCoinsAreRemovedFromCoinBank() {
+		vendingMachine.insertCoin(5.670, 24.26, 1.75);
+		vendingMachine.returnChange(new DollarAmount(0));
+		Assert.assertEquals(20, coinBank.getQuarterStock().size());
+	}
 }
 
