@@ -245,5 +245,11 @@ public class VendingMachineTest {
 		Assert.assertEquals(21, coinBank.getQuarterStock().size());
 	}
 	
+	@Test
+	public void whenCustomerInsertsDimesTheyAreAddedToCoinBank() {
+		vendingMachine.insertCoin(2.268, 17.91, 1.35);
+		Assert.assertEquals(21, coinBank.getDimeStock().size());
+	}
+	
 }
 

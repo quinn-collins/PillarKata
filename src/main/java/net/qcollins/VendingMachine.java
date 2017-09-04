@@ -68,6 +68,9 @@ public class VendingMachine {
 			if(coin.getName().equals("quarter")) {
 				coinBank.getQuarterStock().add((Quarter) coin);
 			}
+			if(coin.getName().equals("dime")) {
+				coinBank.getDimeStock().add((Dime) coin);
+			}
 			currentBalance = currentBalance.plus(coin.getValue());
 			setDisplay(currentBalance.toString());
 		}
